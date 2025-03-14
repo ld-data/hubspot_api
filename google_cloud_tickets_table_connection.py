@@ -1,7 +1,7 @@
 from google.cloud import bigquery
 import os
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Set the path to your service account key JSON file
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "briqsafe-datawarehouse-dev-02c82a7f0ea7.json"
@@ -31,26 +31,29 @@ try:
     for field in table.schema:
         print(f"- {field.name} ({field.field_type})")
 
-    # Query to fetch all tickets created since 2024
+    # Calculate date one month ago
+    one_month_ago = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
+
+    # Query to fetch all tickets created in the last month
     query = f"""
         SELECT *
         FROM `{table_id}`
-        WHERE EXTRACT(YEAR FROM property_createdate) >= 2024
+        WHERE DATE(property_createdate) >= '{one_month_ago}'
         ORDER BY property_createdate DESC
     """
 
-    print("\nExecuting query to fetch tickets created since 2024...")
+    print(f"\nExecuting query to fetch tickets created since {one_month_ago}...")
     
     # Execute the query and convert to DataFrame
     df = client.query(query).to_dataframe()
     
     # Print summary statistics
-    print(f"\nFound {len(df)} tickets created since 2024")
+    print(f"\nFound {len(df)} tickets created in the last month")
     print(f"Number of columns: {len(df.columns)}")
     
     # Save the results to a CSV file
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_file = f"tickets_2024_{timestamp}.csv"
+    output_file = f"tickets_last_month_{timestamp}.csv"
     df.to_csv(output_file, index=False)
     print(f"\nResults saved to {output_file}")
     
