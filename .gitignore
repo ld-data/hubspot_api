@@ -57,4 +57,13 @@ local_settings.py
 *.sqlite3
 
 # Windows batch files
-*.bat 
+*.bat
+
+# Data files
+*.csv
+hubspot_google_env/
+
+# New additions from the code block
+__pycache__/
+*.pyc
+tickets_last_month_*.csv 
