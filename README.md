@@ -1,63 +1,73 @@
 # HubSpot BigQuery Integration
 
-This project provides functionality to connect to and query HubSpot ticket data from Google BigQuery.
+This project provides tools for interacting with HubSpot data stored in Google BigQuery.
 
 ## Prerequisites
 
 - Python 3.8 or higher
-- Google Cloud Platform account with BigQuery access
-- HubSpot account with API access
-- Required Python packages (listed in requirements.txt)
+- Google Cloud credentials
+- HubSpot API access
 
 ## Setup
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd hubspot-api
-```
+### Windows
 
-2. Create and activate a virtual environment:
-```bash
-# Windows
+1. Create and activate virtual environment:
+```powershell
 python -m venv hubspot_bigquery
 .\hubspot_bigquery\Scripts\activate
+```
 
-# Unix/MacOS
+2. Install required packages:
+```powershell
+pip install -r requirements.txt
+```
+
+### macOS/Linux
+
+1. Create and activate virtual environment:
+```bash
 python3 -m venv hubspot_bigquery
 source hubspot_bigquery/bin/activate
 ```
 
-3. Install required packages:
+2. Install required packages:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Set up Google Cloud credentials:
-   - Place your Google Cloud service account credentials JSON file in the project directory
-   - Ensure the credentials file is named `credentials.json`
+## Configuration
+
+1. Place your Google Cloud credentials JSON file in the project root directory
+2. Update the credentials path in the scripts if needed
 
 ## Usage
 
-1. Activate the virtual environment if not already activated:
-```bash
-# Windows
-.\hubspot_bigquery\Scripts\activate
+### Fetching Tickets from BigQuery
 
-# Unix/MacOS
-source hubspot_bigquery/bin/activate
-```
+Run the script to fetch tickets created since 2024:
 
-2. Run the BigQuery connection script:
 ```bash
 python google_cloud_tickets_table_connection.py
 ```
 
+The script will:
+- Connect to BigQuery
+- Fetch tickets created since January 1, 2024
+- Display the data
+- Save results to `tickets_2024.csv`
+
 ## Project Structure
 
-- `google_cloud_tickets_table_connection.py`: Main script for connecting to BigQuery and querying HubSpot ticket data
+- `google_cloud_tickets_table_connection.py`: Main script for fetching tickets from BigQuery
+- `email_associations_extraction.py`: Script for extracting email associations
 - `requirements.txt`: List of Python package dependencies
-- `credentials.json`: Google Cloud service account credentials (not included in repository)
+
+## Notes
+
+- Make sure your virtual environment is activated before running scripts
+- Keep your credentials secure and never commit them to version control
+- The virtual environment directory (`hubspot_bigquery/`) is excluded from Git
 
 ## Security Notes
 

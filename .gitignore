@@ -1,16 +1,27 @@
 # Google Cloud credentials
 *.json
 
-# Python
+# Python virtual environments
+hubspot_bigquery/
+venv/
+env/
+ENV/
+.env
+.venv
+env.bak/
+venv.bak/
+
+# Python bytecode
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-env/
+
+# Distribution / packaging
+dist/
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -23,14 +34,6 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-
-# Virtual Environment
-venv/
-ENV/
-.env
-
-# Python virtual environment
-hubspot_bigquery/
 
 # IDE specific files
 .idea/
@@ -51,4 +54,16 @@ local_settings.py
 
 # Database
 *.db
-*.sqlite3 
+*.sqlite3
+
+# Windows batch files
+*.bat
+
+# Data files
+*.csv
+hubspot_google_env/
+
+# New additions from the code block
+__pycache__/
+*.pyc
+tickets_last_month_*.csv 
